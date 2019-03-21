@@ -25,17 +25,24 @@ function displaySuperheroInfo() {
   }).then(function(response) {
     var results = response.data;
     //console.log(response);
-    console.log(results);
+    //console.log(results);
     for (var i = 0; i < results.length; i++) {
       var gifDiv = $("<div>");
       var rating = results[i].rating;
-      console.log(rating);
+      //console.log(rating);
       var ratingInfo = $("<p>").text("Rating: " + rating);
+      
       var superGif = $("<img>");
-      superGif.attr("src", results[i].images.fixed_height_still.url);
+      superGif.attr("src", results[i].images.fixed_width_still.url);
+      superGif.attr("data-still", results[i].images.fixed_width_still.url);
+      superGif.attr("data-animate", results[i].images.fixed_width.url);
+      superGif.attr("data-state","still");
+      superGif.addClass("superGif");
 
+        //add a class for gifs to add borders
       gifDiv.append(ratingInfo);
       gifDiv.append(superGif);
+
      
       $("#gifsGoHere").prepend(gifDiv);
     }
@@ -64,6 +71,17 @@ $("#submitGitInput").on("click", function(event) {
   topics.push(hero);
   //console.log(topics);
   createSuperheroButtons();
+});
+
+$(".superGif").on("click", function () {
+    var state = $(this).attr("data-state");
+    if (state === "still") {
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
+    } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+    }
 });
 
 $(document).on("click", ".superhero", displaySuperheroInfo);
