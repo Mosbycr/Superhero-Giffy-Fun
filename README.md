@@ -12,4 +12,5 @@ Users can add superhero buttons by adding names into the input box and hitting s
 * Click again to stop animation.
 
 # Demo:
+![Screenshot (5)](https://user-images.githubusercontent.com/46547100/54846297-e49e1b00-4cb1-11e9-8b6b-947d1b7f5e68.png)
 
