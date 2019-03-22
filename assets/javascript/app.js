@@ -31,21 +31,33 @@ function displaySuperheroInfo() {
       var rating = results[i].rating;
       //console.log(rating);
       var ratingInfo = $("<p>").text("Rating: " + rating);
-      
+
       var superGif = $("<img>");
       superGif.attr("src", results[i].images.fixed_width_still.url);
       superGif.attr("data-still", results[i].images.fixed_width_still.url);
       superGif.attr("data-animate", results[i].images.fixed_width.url);
-      superGif.attr("data-state","still");
+      superGif.attr("data-state", "still");
       superGif.addClass("superGif");
 
-        //add a class for gifs to add borders
+      //add a class for gifs to add borders
       gifDiv.append(ratingInfo);
       gifDiv.append(superGif);
 
-     
       $("#gifsGoHere").prepend(gifDiv);
     }
+
+    $(".superGif").on("click", function () {
+      //alert("yesss");
+      var state = $(this).attr("data-state");
+      console.log("data-state");
+      if (state === "still") {
+          $(this).attr("src", $(this).attr("data-animate"));
+          $(this).attr("data-state", "animate");
+      } else {
+          $(this).attr("src", $(this).attr("data-still"));
+          $(this).attr("data-state", "still");
+      }
+    });
   });
 }
 
@@ -73,16 +85,9 @@ $("#submitGitInput").on("click", function(event) {
   createSuperheroButtons();
 });
 
-$(".superGif").on("click", function () {
-    var state = $(this).attr("data-state");
-    if (state === "still") {
-        $(this).attr("src", $(this).attr("data-animate"));
-        $(this).attr("data-state", "animate");
-    } else {
-        $(this).attr("src", $(this).attr("data-still"));
-        $(this).attr("data-state", "still");
-    }
-});
+
+  
+
 
 $(document).on("click", ".superhero", displaySuperheroInfo);
 
